@@ -663,7 +663,7 @@ body {
       <span class="cart-total-label">Total</span>
       <span class="cart-total-val" id="cartTotal">$0 USD</span>
     </div>
-    <button class="btn-checkout" onclick="alert('Checkout — conectar con tu pasarela de pago 🛒')">Finalizar compra →</button>
+    <button class="btn-checkout" onclick="handleCheckout()">Finalizar compra →</button>
   </div>
 </div>
 
@@ -984,6 +984,18 @@ function closeCart() {
 }
 document.getElementById('cartClose').addEventListener('click', closeCart);
 document.getElementById('cartOverlay').addEventListener('click', closeCart);
+
+const STRIPE_LINKS = {
+  pendrive: 'https://buy.stripe.com/00waEZa09dH635OeMTes000'
+};
+
+function handleCheckout() {
+  if (!cart || Object.keys(cart).length === 0) {
+    alert('Tu carrito está vacío.');
+    return;
+  }
+  window.open(STRIPE_LINKS.pendrive, '_blank');
+}
 
 function addToCart(id) {
   cart[id] = (cart[id] || 0) + 1;
