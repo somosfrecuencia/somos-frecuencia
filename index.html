@@ -1166,7 +1166,20 @@ body {
   .nav-link:hover { color: var(--b5); }
 }
 
+/* ═══ PENDRIVE FLOAT ═══ */
+#pendriveEl { transform-style: preserve-3d; }
 
+/* ═══ ALIEN GLYPH DIVIDER ═══ */
+.glyph-divider {
+  text-align: center;
+  padding: 20px 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 0.5em;
+  color: var(--b2);
+  user-select: none;
+}
+
+</style>
 </head>
 <body>
 
@@ -2298,6 +2311,9 @@ if (!('ontouchstart' in window)) {
     card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
 }
+
+/* ═══════════════════════════════════════
+   MOBILE NAV
 ═══════════════════════════════════════ */
 function toggleMobileNav() {
   const navRight = document.getElementById('navRight');
