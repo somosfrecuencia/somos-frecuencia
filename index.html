@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SOMOS FRECUENCIA — Un movimiento. Música, mentoría, cultura y comunidad.">
+<title>SOMOS FRECUENCIA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:   #000000;
+  --void:    #030303;
+  --deep:    #070707;
+  --surface: #0c0c0c;
+  --card:    #0a0a0a;
+  --b1:      #111111;
+  --b2:      #1a1a1a;
+  --b3:      #252525;
+  --b4:      #333333;
+  --b5:      #555555;
+  --b6:      #777777;
+  --b7:      #aaaaaa;
+  --b8:      #cccccc;
+  --white:   #f2f2f2;
+  --pure:    #ffffff;
+  --freq:    #00e0c8;
+  --freq2:   #00b8a6;
+  --freq-glow: rgba(0,224,200,0.12);
+  --freq-glow2: rgba(0,224,200,0.04);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  /* subtle noise via SVG data URI */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+/* ──── NAV ──── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--b1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 44px;
+}
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.18em;
+  color: var(--white);
+  text-decoration: none;
+  line-height: 1;
+}
+.logo span { color: var(--freq); }
+.nav-right { display: flex; align-items: center; gap: 22px; }
+.nav-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--b5);
+  text-transform: uppercase;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-weight: 300;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--white); }
+#cartBtn {
+  position: relative;
+  background: none;
+  border: 0.5px solid var(--b2);
+  color: var(--b7);
+  padding: 7px 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+#cartBtn:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+#cartCount {
+  position: absolute;
+  top: -8px; right: -8px;
+  background: var(--freq);
+  color: var(--black);
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  font-size: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+#cartCount.visible { opacity: 1; transform: scale(1); }
+
+/* ──── CART ──── */
+.cart-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 200; opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.cart-overlay.open { opacity: 1; pointer-events: all; }
+.cart-panel {
+  position: fixed; top: 0; right: 0;
+  width: min(340px, 94vw); height: 100%;
+  background: #020202;
+  border-left: 0.5px solid var(--b1);
+  z-index: 210;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+}
+.cart-panel.open { transform: translateX(0); }
+.cart-header {
+  padding: 18px 22px;
+  border-bottom: 0.5px solid var(--b1);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.cart-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px; letter-spacing: 0.18em;
+  color: var(--b7);
+}
+.cart-close {
+  background: none; border: none; color: var(--b4);
+  font-size: 22px; cursor: pointer; transition: color 0.2s;
+}
+.cart-close:hover { color: var(--white); }
+.cart-items { flex: 1; overflow-y: auto; padding: 16px 22px; }
+.cart-empty {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--b3);
+  text-align: center; padding: 48px 0; letter-spacing: 0.18em;
+}
+.cart-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0; border-bottom: 0.5px solid var(--b1);
+}
+.ci-name { font-size: 11px; color: var(--b7); margin-bottom: 3px; }
+.ci-price { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--b4); }
+.ci-qty { display: flex; align-items: center; gap: 6px; }
+.qty-btn {
+  background: none; border: 0.5px solid var(--b2); color: var(--b5);
+  width: 22px; height: 22px; font-size: 14px; cursor: pointer;
+  border-radius: 2px; display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.qty-btn:hover { background: var(--b2); color: var(--white); }
+.qty-num { font-family: 'DM Mono', monospace; font-size: 11px; min-width: 14px; text-align: center; }
+.cart-footer { padding: 16px 22px; border-top: 0.5px solid var(--b1); }
+.cart-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.cart-total-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.22em; color: var(--b4); text-transform: uppercase; }
+.cart-total-val { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 300; }
+.btn-checkout {
+  width: 100%; padding: 13px;
+  background: var(--white); color: var(--black);
+  border: none; font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px;
+  transition: background 0.2s;
+}
+.btn-checkout:hover { background: #ddd; }
+
+/* ──── HERO ──── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 100px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* oscilloscope background */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 60%, rgba(0,224,200,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-mono {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.55em;
+  color: var(--freq);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+.hero-somos {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 200;
+  font-size: clamp(14px, 3vw, 22px);
+  letter-spacing: 0.65em;
+  text-transform: uppercase;
+  color: var(--b5);
+  margin-bottom: 0;
+  line-height: 1;
+}
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 16vw, 160px);
+  line-height: 0.88;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+  color: var(--white);
+  position: relative;
+}
+/* 3D depth on hero title */
+.hero-title .freq-accent {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--b3);
+  display: block;
+}
+.hero-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: var(--b4);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* ──── FREQ BARS ──── */
+.freq-wrap {
+  width: 100%;
+  max-width: 640px;
+  height: 72px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  padding: 0 24px;
+  margin: 28px 0 0;
+}
+.freq-bar {
+  width: 3px;
+  border-radius: 2px 2px 0 0;
+  background: var(--b2);
+  min-height: 3px;
+  flex-shrink: 0;
+  transition: filter 0.05s;
+}
+
+/* ──── SECTIONS ──── */
+.section { padding: 80px 44px; }
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.44em;
+  color: var(--freq); text-transform: uppercase;
+  padding-top: 14px;
+  border-top: 0.5px solid var(--b1);
+  margin-bottom: 40px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::after {
+  content: '';
+  flex: 1; height: 0.5px;
+  background: linear-gradient(to right, var(--b1), transparent);
+}
+
+/* ──── FEATURED PRODUCT ──── */
+.feat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 860px;
+  margin: 0 auto;
+  border: 0.5px solid var(--b1);
+  border-radius: 6px;
+  overflow: hidden;
+  perspective: 1200px;
+}
+.feat-visual {
+  background: linear-gradient(135deg, #060606 0%, #0c0c0c 50%, #060606 100%);
+  display: flex; align-items: center; justify-content: center;
+  min-height: 360px;
+  border-right: 0.5px solid var(--b1);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.feat-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, var(--freq-glow2), transparent 70%);
+}
+.feat-info {
+  padding: 36px 32px;
+  background: #030303;
+  display: flex; flex-direction: column;
+  justify-content: space-between; gap: 24px;
+}
+.badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  border: 0.5px solid var(--b2); color: var(--b5);
+  display: inline-block; padding: 5px 12px;
+  border-radius: 2px; margin-bottom: 14px;
+  width: fit-content;
+}
+.badge.instock { color: #3cb371; border-color: #162816; }
+.badge.instock::before { content: '● '; font-size: 6px; }
+.prod-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px; letter-spacing: 0.06em;
+  line-height: 1.1; margin-bottom: 10px;
+  color: var(--white);
+}
+.prod-desc {
+  font-size: 11px; color: var(--b5);
+  line-height: 1.95; margin-bottom: 18px;
+  font-weight: 300;
+}
+.feat-list { margin-bottom: 22px; }
+.feat-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 0; border-bottom: 0.5px solid var(--b1);
+}
+.feat-dot { width: 4px; height: 4px; background: var(--freq); border-radius: 50%; flex-shrink: 0; opacity: 0.6; }
+.feat-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--b5);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.prod-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 32px; font-weight: 300;
+  letter-spacing: -0.02em; margin-bottom: 14px;
+}
+.prod-price sup { font-size: 14px; vertical-align: top; margin-top: 8px; }
+.prod-price small { font-size: 11px; color: var(--b4); margin-left: 4px; }
+.btn-primary {
+  width: 100%; padding: 13px;
+  background: var(--white); color: var(--black);
+  border: none; font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px; transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--freq); color: var(--black); }
+.btn-primary:active { transform: scale(0.98); }
+
+/* ──── SHIRTS ──── */
+.shirts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px; max-width: 860px; margin: 0 auto;
+}
+.shirt-card {
+  border: 0.5px solid var(--b1);
+  border-radius: 4px; overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  perspective: 800px;
+  background: var(--deep);
+}
+.shirt-card:hover {
+  border-color: var(--b3);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 0.5px var(--b2);
+}
+.shirt-visual {
+  display: flex; align-items: center; justify-content: center;
+  height: 200px; background: var(--surface);
+  transition: background 0.3s; position: relative;
+  overflow: hidden;
+}
+.shirt-visual::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 50%);
+  pointer-events: none;
+}
+.shirt-card:hover .shirt-visual { background: #0f0f0f; }
+.shirt-info { padding: 14px 16px; }
+.shirt-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: var(--b7);
+  font-weight: 300; margin-bottom: 4px;
+}
+.shirt-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--b4); margin-bottom: 10px;
+}
+.btn-secondary {
+  width: 100%; padding: 9px;
+  background: transparent; color: var(--b5);
+  border: 0.5px solid var(--b2);
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px; transition: all 0.2s;
+}
+.btn-secondary:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+
+/* ──── MENTORIAS ──── */
+.mentor-grid {
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  gap: 44px; max-width: 860px; margin: 0 auto; align-items: start;
+}
+.mentor-avatar {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--b1); border: 0.5px solid var(--b2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; color: var(--b5); margin-bottom: 16px;
+  letter-spacing: 0.06em;
+}
+.mentor-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; letter-spacing: 0.06em;
+  margin-bottom: 5px; line-height: 1;
+}
+.mentor-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em;
+  color: var(--freq); text-transform: uppercase; margin-bottom: 14px;
+}
+.mentor-bio { font-size: 11px; color: var(--b5); line-height: 1.95; margin-bottom: 16px; font-weight: 300; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 0.12em; color: var(--b4);
+  border: 0.5px solid var(--b2); padding: 5px 11px;
+  border-radius: 20px; text-transform: uppercase;
+  transition: border-color 0.2s, color 0.2s;
+}
+.tag:hover { border-color: var(--freq); color: var(--freq); }
+.mentoria-cards { display: flex; flex-direction: column; gap: 12px; }
+.mc {
+  background: #030303;
+  border: 0.5px solid var(--b1);
+  border-radius: 4px; padding: 22px 20px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.mc:hover {
+  border-color: var(--b2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.mc-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.3em; color: var(--b3); margin-bottom: 10px;
+}
+.mc-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: 0.06em;
+  margin-bottom: 6px; color: var(--b8);
+}
+.mc-desc { font-size: 11px; color: var(--b4); line-height: 1.9; margin-bottom: 14px; font-weight: 300; }
+.mc-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 26px; font-weight: 300;
+  margin-bottom: 12px; letter-spacing: -0.02em;
+}
+.mc-price sup { font-size: 12px; vertical-align: top; margin-top: 4px; }
+.mc-price small { font-size: 9px; color: var(--b4); margin-left: 3px; }
+
+/* ──── COMUNIDAD ──── */
+.movimiento-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 16px; max-width: 860px; margin: 0 auto;
+}
+.movimiento-card {
+  background: #030303;
+  border: 0.5px solid var(--b1);
+  border-radius: 4px; padding: 24px 22px;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative; overflow: hidden;
+}
+.movimiento-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--freq-glow), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.movimiento-card:hover { border-color: var(--b2); transform: translateY(-2px); }
+.movimiento-card:hover::before { opacity: 1; }
+.mov-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.3em; color: var(--b2); margin-bottom: 12px;
+}
+.mov-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 0.06em;
+  margin-bottom: 8px; color: var(--b8);
+}
+.mov-desc { font-size: 11px; color: var(--b4); line-height: 1.9; font-weight: 300; }
+
+/* ──── TESTIMONIOS ──── */
+.testi-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; max-width: 860px; margin: 0 auto;
+}
+.testi-card {
+  background: #030303;
+  border: 0.5px solid var(--b1);
+  border-radius: 4px; padding: 24px 22px;
+  position: relative;
+}
+.testi-card::before {
+  content: '"';
+  position: absolute; top: 14px; left: 18px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px; color: var(--b1); line-height: 1;
+  pointer-events: none;
+}
+.testi-quote {
+  font-size: 13px; font-weight: 300;
+  color: var(--b6); line-height: 1.8;
+  font-style: italic; margin-bottom: 18px;
+  padding-top: 8px; position: relative; z-index: 1;
+}
+.testi-author { display: flex; align-items: center; gap: 11px; }
+.testi-av {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--b1); border: 0.5px solid var(--b2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 9px; color: var(--b4);
+  flex-shrink: 0;
+}
+.testi-name { font-size: 11px; color: var(--b7); font-weight: 300; }
+.testi-handle {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--b3); margin-top: 1px;
+}
+
+/* ──── MANIFESTO ──── */
+.manifesto {
+  padding: 110px 44px;
+  text-align: center;
+  border-top: 0.5px solid var(--b1);
+  position: relative; overflow: hidden;
+}
+.manifesto::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,224,200,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.manifesto-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.44em;
+  color: var(--freq); text-transform: uppercase;
+  margin-bottom: 24px; opacity: 0.7;
+}
+.manifesto h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 6vw, 58px);
+  letter-spacing: 0.05em; line-height: 1.2;
+  max-width: 600px; margin: 0 auto 32px;
+  color: var(--white);
+}
+.manifesto h2 em {
+  font-style: normal;
+  color: transparent; -webkit-text-stroke: 1px var(--b3);
+}
+.btn-cta {
+  padding: 14px 44px;
+  background: var(--white); color: var(--black);
+  border: none; font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.36em; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px; transition: all 0.2s;
+}
+.btn-cta:hover { background: var(--freq); color: var(--black); }
+
+/* ──── FOOTER ──── */
+.footer {
+  padding: 22px 44px;
+  border-top: 0.5px solid var(--b1);
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 8px;
+}
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--b3); letter-spacing: 0.14em;
+}
+.footer-links { display: flex; gap: 20px; }
+.footer-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--b3);
+  text-decoration: none; letter-spacing: 0.12em;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--freq); }
+
+/* ──── SCROLL REVEAL ──── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal-left {
+  opacity: 0; transform: translateX(-24px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.visible, .reveal-left.visible { opacity: 1; transform: none; }
+
+/* ──── RESPONSIVE ──── */
+@media (max-width: 720px) {
+  .nav { padding: 12px 20px; }
+  .section { padding: 56px 20px; }
+  .feat-grid { grid-template-columns: 1fr; }
+  .feat-visual { border-right: none; border-bottom: 0.5px solid var(--b1); min-height: 200px; }
+  .shirts-grid { grid-template-columns: 1fr 1fr; }
+  .mentor-grid { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .movimiento-grid { grid-template-columns: 1fr; }
+  .manifesto { padding: 68px 20px; }
+  .footer { padding: 18px 20px; }
+  .nav-link { display: none; }
+}
+@media (max-width: 400px) {
+  .shirts-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 72px; }
+}
+</style>
+</head>
+<body>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <span class="cart-title">Carrito</span>
+    <button class="cart-close" id="cartClose">&#215;</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="cart-empty">Tu carrito está vacío</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-val" id="cartTotal">$0 USD</span>
+    </div>
+    <button class="btn-checkout" onclick="alert('Checkout — conectar con tu pasarela de pago 🛒')">Finalizar compra →</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="logo" href="#">SOMOS <span>FRECUENCIA</span></a>
+  <div class="nav-right">
+    <button class="nav-link" onclick="scrollTo('#store')">Store</button>
+    <button class="nav-link" onclick="scrollTo('#mentorias')">Mentorías</button>
+    <button class="nav-link" onclick="scrollTo('#comunidad')">Comunidad</button>
+    <button id="cartBtn" onclick="openCart()">
+      Carrito
+      <span id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <p class="hero-mono">Música · Identidad · Movimiento</p>
+  <p class="hero-somos">Somos</p>
+  <h1 class="hero-title">
+    FRECUENCIA
+    <span class="freq-accent">FRECUENCIA</span>
+  </h1>
+  <p class="hero-sub">Un movimiento. Una señal. Una comunidad.</p>
+  <div class="freq-wrap" id="freqWrap"></div>
+</section>
+
+<!-- FEATURED: PENDRIVE -->
+<section class="section reveal" id="store">
+  <p class="section-label">Producto 001 — Drop 01 — La Señal</p>
+  <div class="feat-grid">
+    <div class="feat-visual">
+      <div id="pendriveEl">
+        <!-- 3D-style Pendrive SVG -->
+        <svg width="96" height="178" viewBox="0 0 96 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bodyGrad" x1="10" y1="0" x2="86" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#0a0a0a"/>
+              <stop offset="30%" stop-color="#181818"/>
+              <stop offset="70%" stop-color="#141414"/>
+              <stop offset="100%" stop-color="#080808"/>
+            </linearGradient>
+            <linearGradient id="connGrad" x1="28" y1="0" x2="68" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#333"/>
+              <stop offset="40%" stop-color="#555"/>
+              <stop offset="100%" stop-color="#2a2a2a"/>
+            </linearGradient>
+            <linearGradient id="topGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#252525"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </linearGradient>
+            <filter id="glowFreq">
+              <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Body -->
+          <rect x="10" y="0" width="76" height="112" rx="6" fill="url(#bodyGrad)" stroke="#1c1c1c" stroke-width="0.5"/>
+          <!-- Top highlight -->
+          <rect x="10" y="0" width="76" height="3" rx="6" fill="#222"/>
+          <!-- Horizontal lines / circuit style -->
+          <rect x="20" y="18" width="56" height="0.5" fill="#161616"/>
+          <rect x="20" y="30" width="56" height="0.5" fill="#161616"/>
+          <rect x="20" y="42" width="56" height="0.5" fill="#161616"/>
+          <rect x="20" y="54" width="56" height="0.5" fill="#161616"/>
+          <rect x="20" y="66" width="56" height="0.5" fill="#161616"/>
+          <rect x="20" y="78" width="56" height="0.5" fill="#161616"/>
+          <rect x="20" y="90" width="56" height="0.5" fill="#161616"/>
+          <!-- Freq indicator dot (glowing) -->
+          <circle cx="48" cy="56" r="3" fill="#00e0c8" filter="url(#glowFreq)" opacity="0.7"/>
+          <!-- Brand label -->
+          <text x="48" y="104" text-anchor="middle" fill="#333" font-size="5.5" font-family="'DM Mono',monospace" letter-spacing="2.5">SOMOS FRECUENCIA</text>
+          <!-- Connector body -->
+          <rect x="30" y="112" width="36" height="66" rx="3" fill="url(#connGrad)" stroke="#2a2a2a" stroke-width="0.5"/>
+          <!-- Connector highlight -->
+          <rect x="30" y="112" width="36" height="2" fill="#666" rx="1"/>
+          <!-- Connector lines -->
+          <rect x="35" y="124" width="26" height="0.5" fill="#666"/>
+          <rect x="35" y="136" width="26" height="0.5" fill="#666"/>
+          <rect x="35" y="148" width="26" height="0.5" fill="#666"/>
+          <rect x="35" y="160" width="26" height="0.5" fill="#555"/>
+          <!-- Bottom usb contacts -->
+          <rect x="34" y="170" width="5" height="6" rx="1" fill="#888"/>
+          <rect x="42" y="170" width="5" height="6" rx="1" fill="#888"/>
+          <rect x="50" y="170" width="5" height="6" rx="1" fill="#888"/>
+          <rect x="58" y="170" width="4" height="6" rx="1" fill="#888"/>
+        </svg>
+      </div>
+    </div>
+    <div class="feat-info">
+      <div>
+        <span class="badge instock">En Stock</span>
+        <h2 class="prod-name">The Access<br>Pendrive</h2>
+        <p class="prod-desc">Un objeto físico. Una señal permanente. Este pendrive es tu llave de entrada al universo SOMOS FRECUENCIA — comunidad, cursos, música y mucho más. Todo en un solo objeto.</p>
+        <div class="feat-list">
+          <div class="feat-row"><div class="feat-dot"></div><span class="feat-text">Comunidad privada Somos Frecuencia</span></div>
+          <div class="feat-row"><div class="feat-dot"></div><span class="feat-text">Cursos de producción y mezcla</span></div>
+          <div class="feat-row"><div class="feat-dot"></div><span class="feat-text">Música exclusiva precargada</span></div>
+          <div class="feat-row"><div class="feat-dot"></div><span class="feat-text">Acceso a eventos y shows</span></div>
+          <div class="feat-row"><div class="feat-dot"></div><span class="feat-text">Mentorías con Armando Toledano</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="prod-price"><sup>$</sup>49 <small>USD</small></p>
+        <button class="btn-primary" onclick="addToCart('pendrive')">Añadir al carrito →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRANELAS / MOVIMIENTO APPAREL -->
+<section class="section" id="apparel">
+  <p class="section-label reveal">Apparel — Somos Frecuencia Collection</p>
+  <div class="shirts-grid">
+
+    <div class="shirt-card reveal">
+      <div class="shirt-visual">
+        <svg width="118" height="118" viewBox="0 0 118 118">
+          <defs>
+            <linearGradient id="shirtWGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f8f8f8"/>
+              <stop offset="100%" stop-color="#e8e8e8"/>
+            </linearGradient>
+          </defs>
+          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z" fill="url(#shirtWGrad)" stroke="#ccc" stroke-width="0.4"/>
+          <!-- collar shadow -->
+          <path d="M45,28 Q59,22 73,28" fill="none" stroke="#ccc" stroke-width="0.5"/>
+          <text x="59" y="72" text-anchor="middle" fill="#111" font-size="6" font-family="'DM Mono',monospace" letter-spacing="1.8">SOMOS</text>
+          <text x="59" y="82" text-anchor="middle" fill="#555" font-size="5" font-family="'DM Mono',monospace" letter-spacing="1.2">FRECUENCIA</text>
+        </svg>
+      </div>
+      <div class="shirt-info">
+        <p class="shirt-name">Essential Tee — Blanca</p>
+        <p class="shirt-price">$35 USD</p>
+        <button class="btn-secondary" onclick="addToCart('shirt_w')">Añadir al carrito →</button>
+      </div>
+    </div>
+
+    <div class="shirt-card reveal" style="transition-delay:0.1s">
+      <div class="shirt-visual">
+        <svg width="118" height="118" viewBox="0 0 118 118">
+          <defs>
+            <linearGradient id="shirtBGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0e0e0e"/>
+              <stop offset="100%" stop-color="#060606"/>
+            </linearGradient>
+          </defs>
+          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z" fill="url(#shirtBGrad)" stroke="#1e1e1e" stroke-width="0.4"/>
+          <path d="M45,28 Q59,22 73,28" fill="none" stroke="#1e1e1e" stroke-width="0.5"/>
+          <text x="59" y="72" text-anchor="middle" fill="#f2f2f2" font-size="6" font-family="'DM Mono',monospace" letter-spacing="1.8">SOMOS</text>
+          <text x="59" y="82" text-anchor="middle" fill="#00e0c8" font-size="5" font-family="'DM Mono',monospace" letter-spacing="1.2">FRECUENCIA</text>
+        </svg>
+      </div>
+      <div class="shirt-info">
+        <p class="shirt-name">Essential Tee — Negra</p>
+        <p class="shirt-price">$35 USD</p>
+        <button class="btn-secondary" onclick="addToCart('shirt_b')">Añadir al carrito →</button>
+      </div>
+    </div>
+
+    <div class="shirt-card reveal" style="transition-delay:0.2s">
+      <div class="shirt-visual">
+        <svg width="118" height="118" viewBox="0 0 118 118">
+          <defs>
+            <linearGradient id="shirtCGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#080808"/>
+              <stop offset="100%" stop-color="#030303"/>
+            </linearGradient>
+            <filter id="freqGlow2">
+              <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z" fill="url(#shirtCGrad)" stroke="#141414" stroke-width="0.4"/>
+          <!-- freq waveform on shirt -->
+          <polyline points="30,68 34,62 37,74 41,58 44,72 47,64 51,70 55,60 59,68 63,60 67,72 70,62 73,68 76,58 79,72 83,62 87,68" fill="none" stroke="#00e0c8" stroke-width="0.8" filter="url(#freqGlow2)" opacity="0.8"/>
+          <text x="59" y="88" text-anchor="middle" fill="#333" font-size="5" font-family="'DM Mono',monospace" letter-spacing="1.5">LA SEÑAL</text>
+        </svg>
+      </div>
+      <div class="shirt-info">
+        <p class="shirt-name">La Señal Tee — Edición Especial</p>
+        <p class="shirt-price">$45 USD</p>
+        <button class="btn-secondary" onclick="addToCart('shirt_c')">Añadir al carrito →</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MENTORIAS -->
+<section class="section" id="mentorias">
+  <p class="section-label reveal">Mentorías — Formación Musical</p>
+  <div class="mentor-grid">
+    <div class="reveal-left">
+      <div class="mentor-avatar">AT</div>
+      <h3 class="mentor-name">Armando Toledano</h3>
+      <p class="mentor-role">Productor · Compositor · Mentor</p>
+      <p class="mentor-bio">Productor y compositor con más de 10 años en la industria musical. Fundador de Somos Frecuencia, ha trabajado con artistas emergentes y consolidados construyendo identidades sonoras auténticas. Su metodología une técnica, concepto y presencia artística real.</p>
+      <div class="tags">
+        <span class="tag">Producción</span>
+        <span class="tag">Mezcla</span>
+        <span class="tag">Identidad Artística</span>
+        <span class="tag">Composición</span>
+        <span class="tag">Industria Musical</span>
+        <span class="tag">Concepto SF</span>
+      </div>
+    </div>
+    <div class="mentoria-cards reveal">
+      <div class="mc">
+        <p class="mc-num">001</p>
+        <p class="mc-name">Mentoría 1-on-1</p>
+        <p class="mc-desc">Sesión individual de 60 min. Trabajamos tu proyecto, tu sonido y tu desarrollo como artista. Feedback directo y personalizado con Armando.</p>
+        <p class="mc-price"><sup>$</sup>120 <small>USD</small></p>
+        <button class="btn-primary" onclick="addToCart('ment_1')">Reservar sesión →</button>
+      </div>
+      <div class="mc">
+        <p class="mc-num">002</p>
+        <p class="mc-name">Workshop Grupal</p>
+        <p class="mc-desc">6 sesiones con la comunidad. Teoría, práctica y feedback colectivo en vivo. Cupos muy limitados por edición.</p>
+        <p class="mc-price"><sup>$</sup>60 <small>USD</small></p>
+        <button class="btn-primary" onclick="addToCart('ment_w')">Reservar plaza →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMUNIDAD / MOVIMIENTO -->
+<section class="section" id="comunidad">
+  <p class="section-label reveal">El Movimiento — Lo que incluye el acceso</p>
+  <div class="movimiento-grid">
+    <div class="movimiento-card reveal">
+      <p class="mov-num">001</p>
+      <p class="mov-name">Comunidad</p>
+      <p class="mov-desc">Red activa de artistas, productores y creadores construyendo juntos. La frecuencia que conecta.</p>
+    </div>
+    <div class="movimiento-card reveal" style="transition-delay:0.1s">
+      <p class="mov-num">002</p>
+      <p class="mov-name">Cursos</p>
+      <p class="mov-desc">Producción, mezcla, teoría musical y desarrollo artístico. Todo dentro del pendrive. Sin fecha de expiración.</p>
+    </div>
+    <div class="movimiento-card reveal" style="transition-delay:0.2s">
+      <p class="mov-num">003</p>
+      <p class="mov-name">Eventos</p>
+      <p class="mov-desc">Acceso exclusivo a shows, showcases y encuentros presenciales de la comunidad Somos Frecuencia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="section">
+  <p class="section-label reveal">Testimonios — La comunidad habla</p>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <p class="testi-quote">"El pendrive cambió todo. Entré a la comunidad, tomé los cursos y en 3 meses estaba produciendo mi primer EP. No hay mejor inversión que puedas hacer ahora mismo."</p>
+      <div class="testi-author">
+        <div class="testi-av">CR</div>
+        <div>
+          <p class="testi-name">Carlos R.</p>
+          <p class="testi-handle">Caracas — Productor</p>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal" style="transition-delay:0.12s">
+      <p class="testi-quote">"La mentoría con Armando fue brutal. Me ayudó a encontrar mi sonido y a conectar mi música con lo que realmente quiero decir. Somos Frecuencia es mucho más que música."</p>
+      <div class="testi-author">
+        <div class="testi-av">MV</div>
+        <div>
+          <p class="testi-name">María V.</p>
+          <p class="testi-handle">Bogotá — Artista</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO / CTA -->
+<section class="manifesto reveal">
+  <p class="manifesto-eyebrow">El Manifiesto</p>
+  <h2>La música no es un producto.<br><em>Es una forma de existir.</em></h2>
+  <button class="btn-cta" onclick="addToCart('pendrive'); setTimeout(openCart, 350)">Obtener acceso ahora →</button>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer-copy">© 2025 SOMOS FRECUENCIA</span>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Contacto</a>
+    <a href="#">Términos</a>
+  </div>
+</footer>
+
+<script>
+/* ─── PRODUCTOS ─── */
+const PRODUCTS = {
+  pendrive: { name: 'The Access Pendrive',        price: 49  },
+  shirt_w:  { name: 'Essential Tee — Blanca',     price: 35  },
+  shirt_b:  { name: 'Essential Tee — Negra',      price: 35  },
+  shirt_c:  { name: 'La Señal Tee — Especial',    price: 45  },
+  ment_1:   { name: 'Mentoría 1-on-1',            price: 120 },
+  ment_w:   { name: 'Workshop Grupal',            price: 60  }
+};
+
+let cart = {};
+
+/* ─── CART ─── */
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartPanel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartPanel').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('cartClose').addEventListener('click', closeCart);
+document.getElementById('cartOverlay').addEventListener('click', closeCart);
+
+function addToCart(id) {
+  cart[id] = (cart[id] || 0) + 1;
+  renderCart();
+  openCart();
+  const cc = document.getElementById('cartCount');
+  cc.style.transform = 'scale(1.65)';
+  setTimeout(() => cc.style.transform = 'scale(1)', 280);
+}
+window.addToCart = addToCart;
+
+function changeQty(id, delta) {
+  cart[id] = (cart[id] || 0) + delta;
+  if (cart[id] <= 0) delete cart[id];
+  renderCart();
+}
+window.changeQty = changeQty;
+
+function renderCart() {
+  const items = Object.entries(cart).filter(([, q]) => q > 0);
+  const totalCount = items.reduce((a, [, q]) => a + q, 0);
+  const totalPrice = items.reduce((a, [id, q]) => a + PRODUCTS[id].price * q, 0);
+
+  const cc = document.getElementById('cartCount');
+  cc.textContent = totalCount;
+  cc.classList.toggle('visible', totalCount > 0);
+  document.getElementById('cartTotal').textContent = '$' + totalPrice + ' USD';
+
+  const itemsEl = document.getElementById('cartItems');
+  if (!items.length) {
+    itemsEl.innerHTML = '<p class="cart-empty">Tu carrito está vacío</p>';
+    return;
+  }
+  itemsEl.innerHTML = items.map(([id, qty]) => `
+    <div class="cart-item">
+      <div>
+        <p class="ci-name">${PRODUCTS[id].name}</p>
+        <p class="ci-price">$${PRODUCTS[id].price} USD</p>
+      </div>
+      <div class="ci-qty">
+        <button class="qty-btn" onclick="changeQty('${id}', -1)">−</button>
+        <span class="qty-num">${qty}</span>
+        <button class="qty-btn" onclick="changeQty('${id}', 1)">+</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ─── NAV SCROLL ─── */
+function scrollTo(sel) {
+  document.querySelector(sel)?.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ─── FREQUENCY BARS ─── */
+const freqWrap = document.getElementById('freqWrap');
+const NUM_BARS = 72;
+const bars = [], phases = [], speeds = [], amps = [];
+
+for (let i = 0; i < NUM_BARS; i++) {
+  const b = document.createElement('div');
+  b.className = 'freq-bar';
+  freqWrap.appendChild(b);
+  bars.push(b);
+  phases.push(Math.random() * Math.PI * 2);
+  speeds.push(0.014 + Math.random() * 0.03);
+  const center = NUM_BARS / 2;
+  const dist = Math.abs(i - center) / center;
+  amps.push((1 - dist * 0.5) * 50 + 8);
+}
+
+let t = 0;
+(function animFreq() {
+  t += 0.038;
+  bars.forEach((b, i) => {
+    const v =
+      Math.sin(t * speeds[i] * 24 + phases[i]) * 0.5 +
+      Math.cos(t * 0.9 + i * 0.2) * 0.32 +
+      Math.sin(t * 1.7 + i * 0.09) * 0.18;
+    const h = Math.max(3, Math.abs(v) * amps[i]);
+    const intensity = Math.abs(v);
+
+    if (intensity > 0.55) {
+      // glowing teal for high-energy bars
+      const alpha = (intensity - 0.55) / 0.45;
+      const r = Math.round(0 * alpha);
+      const g = Math.round(224 * alpha + 40 * (1 - alpha));
+      const bl = Math.round(200 * alpha + 40 * (1 - alpha));
+      b.style.background = `rgb(${r},${g},${bl})`;
+      b.style.boxShadow = `0 0 ${Math.round(alpha * 6)}px rgba(0,224,200,${alpha * 0.4})`;
+    } else {
+      const br = 20 + Math.floor(intensity * 100);
+      b.style.background = `rgb(${br},${br},${br})`;
+      b.style.boxShadow = 'none';
+    }
+    b.style.height = h + 'px';
+  });
+  requestAnimationFrame(animFreq);
+})();
+
+/* ─── PENDRIVE FLOAT ─── */
+const pendriveEl = document.getElementById('pendriveEl');
+let pa = 0;
+(function floatPd() {
+  pa += 0.016;
+  if (pendriveEl) {
+    const y = Math.sin(pa) * 9;
+    const rx = Math.sin(pa * 0.7) * 2;
+    pendriveEl.style.transform = `translateY(${y}px) rotateX(${rx}deg)`;
+  }
+  requestAnimationFrame(floatPd);
+})();
+
+/* ─── SCROLL REVEAL ─── */
+const revealEls = document.querySelectorAll('.reveal, .reveal-left');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+revealEls.forEach(el => observer.observe(el));
+
+/* ─── 3D CARD TILT on product cards ─── */
+document.querySelectorAll('.shirt-card, .mc, .movimiento-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width  - 0.5;
+    const y = (e.clientY - r.top)  / r.height - 0.5;
+    card.style.transform = `perspective(600px) rotateY(${x * 6}deg) rotateX(${-y * 4}deg) translateY(-2px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+</script>
+</body>
+</html>
