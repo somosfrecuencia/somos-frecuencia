@@ -72,17 +72,38 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 44px;
+  padding: 10px 44px;
 }
+
+/* ─── Logo Nav ─── */
 .logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 18px;
-  letter-spacing: 0.18em;
-  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
   line-height: 1;
 }
-.logo span { color: var(--freq); }
+.logo-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: invert(1) brightness(10);
+  /* Logo es negro, lo invertimos a blanco */
+  transition: filter 0.3s;
+}
+.logo:hover .logo-img {
+  filter: invert(0.6) sepia(1) saturate(10) hue-rotate(145deg) brightness(1.2);
+  /* Al hover lo volvemos del color freq */
+}
+.logo-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.18em;
+  color: var(--white);
+  line-height: 1;
+}
+.logo-text span { color: var(--freq); }
+
 .nav-right { display: flex; align-items: center; gap: 22px; }
 .nav-link {
   font-family: 'DM Mono', monospace;
@@ -204,6 +225,44 @@ body {
   pointer-events: none;
 }
 
+/* ─── Hero Logo Mark ─── */
+.hero-logo-mark {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 24px;
+  position: relative;
+  animation: hero-logo-float 6s ease-in-out infinite;
+}
+.hero-logo-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: invert(1) brightness(10);
+  /* Base blanco */
+}
+.hero-logo-mark::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,224,200,0.12) 0%, transparent 70%);
+  animation: hero-logo-pulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes hero-logo-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes hero-logo-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+/* ─── Logo glow teal version ─── */
+.hero-logo-mark img.teal {
+  filter: invert(0.55) sepia(1) saturate(15) hue-rotate(145deg) brightness(1.3);
+}
+
 .hero-eyebrow {
   font-family: 'DM Mono', monospace;
   font-size: 9px;
@@ -240,7 +299,6 @@ body {
   color: var(--white);
   position: relative;
   transform-style: preserve-3d;
-  /* 3D depth layering */
   text-shadow:
     0 2px 0 rgba(0,224,200,0.05),
     0 4px 0 rgba(0,0,0,0.8),
@@ -364,7 +422,6 @@ body {
   pointer-events: none;
 }
 
-/* alien glyph border top */
 .radio-section::after {
   content: '· ◆ ∿∿∿ ◆ ● ◆ ∿∿∿ ◆ ·';
   position: absolute;
@@ -413,7 +470,6 @@ body {
   box-shadow: 0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
-/* alien panel corner decorations */
 .radio-left::before {
   content: '';
   position: absolute;
@@ -611,7 +667,6 @@ body {
   pointer-events: none;
 }
 
-/* scan line effect on viz */
 .viz-panel::after {
   content: '';
   position: absolute;
@@ -893,6 +948,14 @@ body {
   display: flex; justify-content: space-between; align-items: center;
   position: relative; z-index: 1;
 }
+.footer-logo {
+  display: flex; align-items: center; gap: 10px;
+}
+.footer-logo img {
+  width: 24px; height: 24px;
+  object-fit: contain;
+  filter: invert(1) brightness(10) opacity(0.4);
+}
 .footer-copy { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.2em; color: var(--b3); }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.18em; color: var(--b3); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
@@ -912,7 +975,7 @@ body {
 }
 .reveal-left.visible { opacity: 1; transform: none; }
 
-/* ═══ FLOATING RADIO INDICATOR (sticky mini) ═══ */
+/* ═══ FLOATING RADIO INDICATOR ═══ */
 .radio-mini {
   position: fixed;
   bottom: 24px; right: 24px;
@@ -968,13 +1031,24 @@ body {
 .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* ═══ RESPONSIVE BREAKPOINTS ═══ */
+/* ═══ PENDRIVE FLOAT ═══ */
+#pendriveEl { transform-style: preserve-3d; }
 
-/* ─── Tablet 768px ─── */
+/* ═══ ALIEN GLYPH DIVIDER ═══ */
+.glyph-divider {
+  text-align: center;
+  padding: 20px 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 0.5em;
+  color: var(--b2);
+  user-select: none;
+}
+
+/* ═══ RESPONSIVE ═══ */
 @media (max-width: 768px) {
-  /* Nav */
-  .nav { padding: 12px 20px; }
-  .logo { font-size: 14px; letter-spacing: 0.12em; }
+  .nav { padding: 10px 20px; }
+  .logo-text { font-size: 13px; letter-spacing: 0.1em; }
+  .logo-img { width: 28px; height: 28px; }
   .nav-hamburger { display: flex; }
   .nav-right {
     display: none;
@@ -996,70 +1070,45 @@ body {
   .nav-link { font-size: 11px; letter-spacing: 0.25em; }
   #cartBtn { padding: 10px 24px; font-size: 10px; }
 
-  /* Hero */
   .hero { padding: 90px 20px 70px; }
+  .hero-logo-mark { width: 68px; height: 68px; }
   .hero-planet { width: 110px; height: 110px; top: 50px; right: 4vw; }
   .hero-planet-sm { width: 40px; height: 40px; top: 80px; left: 4vw; }
   .hero-somos { font-size: clamp(11px, 2.5vw, 16px); letter-spacing: 0.4em; }
   .hero-title { font-size: clamp(62px, 16vw, 110px); }
   .freq-wrap { height: 52px; }
 
-  /* Section padding */
   .section { padding: 60px 20px; }
   .radio-section { padding: 60px 20px; }
   .manifesto { padding: 80px 24px; }
   .footer { padding: 24px 20px; flex-direction: column; gap: 14px; text-align: center; }
 
-  /* Radio — stack vertically */
-  .radio-inner {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
+  .radio-inner { grid-template-columns: 1fr; gap: 24px; }
   .radio-left { padding: 22px; }
   .radio-art { max-width: 160px; }
   .radio-track-name { font-size: 16px; }
 
-  /* Featured product */
-  .feat-grid {
-    grid-template-columns: 1fr;
-    border-radius: 6px;
-  }
-  .feat-visual {
-    min-height: 220px;
-    border-right: none;
-    border-bottom: 0.5px solid var(--b1);
-  }
+  .feat-grid { grid-template-columns: 1fr; border-radius: 6px; }
+  .feat-visual { min-height: 220px; border-right: none; border-bottom: 0.5px solid var(--b1); }
   .feat-info { padding: 28px 22px; }
   .prod-name { font-size: 28px; }
   .prod-price { font-size: 26px; }
 
-  /* Shirts — 2 columns on tablet */
   .shirts-grid { grid-template-columns: repeat(2, 1fr); }
-
-  /* Mentorías */
   .mentor-grid { grid-template-columns: 1fr; gap: 32px; }
-
-  /* Movimiento */
   .movimiento-grid { grid-template-columns: 1fr 1fr; }
-
-  /* Testimonios */
   .testi-grid { grid-template-columns: 1fr; }
-
-  /* Radio mini */
   .radio-mini { bottom: 16px; right: 16px; padding: 9px 14px; }
 }
 
-/* ─── Mobile 480px ─── */
 @media (max-width: 480px) {
-  /* Base */
   body { font-size: 13px; }
-
-  /* Nav */
   .nav { padding: 11px 16px; }
-  .logo { font-size: 13px; }
+  .logo-img { width: 26px; height: 26px; }
+  .logo-text { font-size: 12px; }
 
-  /* Hero */
   .hero { padding: 80px 16px 60px; text-align: center; }
+  .hero-logo-mark { width: 56px; height: 56px; margin-bottom: 18px; }
   .hero-planet { width: 80px; height: 80px; top: 44px; right: 2vw; opacity: 0.7; }
   .hero-planet-sm { display: none; }
   .hero-eyebrow { font-size: 8px; letter-spacing: 0.35em; }
@@ -1069,12 +1118,10 @@ body {
   .freq-wrap { height: 44px; gap: 1px; padding: 0 12px; }
   .freq-bar { width: 2px; }
 
-  /* Sections */
   .section { padding: 48px 16px; }
   .radio-section { padding: 48px 16px; }
   .section-label, .radio-top-label { font-size: 8px; letter-spacing: 0.3em; margin-bottom: 28px; }
 
-  /* Radio player */
   .radio-left { padding: 18px 16px; gap: 16px; border-radius: 10px; }
   .radio-art { max-width: 140px; }
   .radio-track-name { font-size: 14px; }
@@ -1084,19 +1131,16 @@ body {
   .rc-btn.play-btn { width: 48px; height: 48px; font-size: 15px; }
   .radio-vol { gap: 6px; }
 
-  /* Visualizer */
   .viz-panel { min-height: 160px; border-radius: 10px; }
   #vizCanvas3D { min-height: 160px; }
   .viz-panel::before { font-size: 6px; letter-spacing: 0.2em; top: 10px; left: 12px; }
 
-  /* Tracklist */
   .tracklist { border-radius: 10px; }
   .track-item { padding: 12px 14px; gap: 10px; }
   .track-name-sm { font-size: 10px; }
   .track-artist-sm { font-size: 7px; }
   .track-duration { display: none; }
 
-  /* Featured product */
   .feat-visual { min-height: 180px; padding: 24px; }
   .feat-info { padding: 22px 18px; gap: 18px; }
   .prod-name { font-size: 26px; }
@@ -1105,11 +1149,9 @@ body {
   .prod-price { font-size: 24px; }
   .btn-primary { font-size: 8px; letter-spacing: 0.22em; padding: 12px; }
 
-  /* Shirts — 1 column on small mobile */
   .shirts-grid { grid-template-columns: 1fr; max-width: 280px; margin: 0 auto; }
   .shirt-visual { height: 170px; }
 
-  /* Mentorías */
   .mentor-name { font-size: 24px; }
   .mentor-bio { font-size: 10px; }
   .mc { padding: 18px; }
@@ -1117,68 +1159,41 @@ body {
   .mc-desc { font-size: 10px; }
   .mc-price { font-size: 20px; }
 
-  /* Movimiento */
   .movimiento-grid { grid-template-columns: 1fr; }
   .movimiento-card { padding: 20px; }
   .mov-name { font-size: 22px; }
   .mov-desc { font-size: 10px; }
 
-  /* Testimonios */
   .testi-card { padding: 20px; }
   .testi-quote { font-size: 11px; }
 
-  /* Manifesto */
   .manifesto { padding: 64px 16px; }
   .manifesto h2 { font-size: clamp(28px, 8vw, 48px); }
   .btn-cta { padding: 14px 28px; font-size: 8px; letter-spacing: 0.28em; }
 
-  /* Footer */
   .footer { padding: 20px 16px; flex-direction: column; gap: 12px; text-align: center; }
   .footer-links { gap: 16px; flex-wrap: wrap; justify-content: center; }
 
-  /* Cart panel */
   .cart-panel { width: 100vw; }
-
-  /* Glyph dividers */
   .glyph-divider { font-size: 7px; letter-spacing: 0.3em; padding: 12px 0; }
-
-  /* Radio mini — smaller on mobile */
   .radio-mini { bottom: 14px; right: 14px; padding: 8px 12px; gap: 7px; }
   .radio-mini-name { font-size: 7px; max-width: 90px; }
 }
 
-/* ─── Extra small 360px ─── */
 @media (max-width: 360px) {
   .hero-title { font-size: 48px; }
   .nav { padding: 10px 14px; }
-  .logo { font-size: 12px; letter-spacing: 0.08em; }
+  .logo-text { font-size: 11px; letter-spacing: 0.06em; }
+  .logo-img { width: 22px; height: 22px; }
 }
 
-/* ─── Touch device improvements ─── */
 @media (hover: none) {
-  /* Disable 3D tilt on touch — causes janky behavior */
   .shirt-card:hover, .mc:hover, .movimiento-card:hover { transform: none; }
-  /* Larger tap targets */
   .rc-btn { min-width: 40px; min-height: 40px; }
   .qty-btn { width: 28px; height: 28px; }
   .track-item { padding: 15px 14px; }
-  /* Remove hover states that look stuck on mobile */
   .nav-link:hover { color: var(--b5); }
 }
-
-/* ═══ PENDRIVE FLOAT ═══ */
-#pendriveEl { transform-style: preserve-3d; }
-
-/* ═══ ALIEN GLYPH DIVIDER ═══ */
-.glyph-divider {
-  text-align: center;
-  padding: 20px 0;
-  font-family: 'DM Mono', monospace;
-  font-size: 8px; letter-spacing: 0.5em;
-  color: var(--b2);
-  user-select: none;
-}
-
 </style>
 </head>
 <body>
@@ -1207,7 +1222,15 @@ body {
 
 <!-- NAV -->
 <nav class="nav">
-  <a class="logo" href="#"><span>SF</span> · SOMOS FRECUENCIA</a>
+  <a class="logo" href="#top">
+    <!-- Logo SF inline SVG (blanco, se colorea al hover) -->
+    <svg class="logo-img" viewBox="0 0 850 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Logo path del PNG provisto — recreado como SVG path simplificado -->
+      <!-- Dado que el logo es una imagen PNG, lo embebemos como SVG con image tag -->
+      <image href="logo-sf.png" x="0" y="0" width="850" height="980"/>
+    </svg>
+    <span class="logo-text">SOMOS <span>FRECUENCIA</span></span>
+  </a>
   <div class="nav-right" id="navRight">
     <button class="nav-link" onclick="scrollToId('radio'); closeMobileNav()">Radio</button>
     <button class="nav-link" onclick="scrollToId('pendrive'); closeMobileNav()">Pendrive</button>
@@ -1229,6 +1252,11 @@ body {
   <div class="hero-planet"></div>
   <div class="hero-planet-sm"></div>
 
+  <!-- Logo mark hero -->
+  <div class="hero-logo-mark">
+    <img src="logo-sf.png" alt="Somos Frecuencia" class="teal">
+  </div>
+
   <p class="hero-eyebrow">Transmisión activa</p>
   <p class="hero-somos">Somos</p>
   <h1 class="hero-title">
@@ -1248,9 +1276,7 @@ body {
 
 <div class="glyph-divider">◆ · · ∿ · ◆ · ∿ · · ◆ · ∿ · ◆ · · ∿ · ◆</div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- RADIO STATION                         -->
-<!-- ══════════════════════════════════════ -->
+<!-- RADIO STATION -->
 <section class="radio-section" id="radio">
 
   <p class="radio-top-label reveal">Somos Frecuencia Radio — En Vivo</p>
@@ -1264,7 +1290,7 @@ body {
         <span>On Air — Transmitiendo</span>
       </div>
 
-      <!-- Album art with alien painting-inspired SVG -->
+      <!-- Album art -->
       <div class="radio-art" id="radioArt">
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -1287,9 +1313,7 @@ body {
               <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
-          <!-- Space background -->
           <rect width="200" height="200" fill="url(#spaceBg)"/>
-          <!-- Stars -->
           <circle cx="20" cy="15" r="0.8" fill="white" opacity="0.8"/>
           <circle cx="45" cy="8" r="0.5" fill="white" opacity="0.6"/>
           <circle cx="80" cy="12" r="0.6" fill="white" opacity="0.7"/>
@@ -1301,34 +1325,26 @@ body {
           <circle cx="60" cy="30" r="0.4" fill="white" opacity="0.5"/>
           <circle cx="110" cy="25" r="0.5" fill="white" opacity="0.4"/>
           <circle cx="155" cy="35" r="0.6" fill="white" opacity="0.6"/>
-          <!-- Planet (Earth-like) -->
           <circle cx="155" cy="45" r="32" fill="url(#planetGrad)" filter="url(#glow4)" opacity="0.9"/>
           <ellipse cx="155" cy="45" rx="32" ry="10" fill="none" stroke="rgba(0,224,200,0.12)" stroke-width="0.5"/>
-          <!-- Green table (oval) -->
           <ellipse cx="100" cy="155" rx="80" ry="28" fill="#1a5c2a" stroke="#0e3a1a" stroke-width="0.5"/>
           <ellipse cx="100" cy="152" rx="76" ry="24" fill="#245c30" opacity="0.5"/>
-          <!-- Alien 1 (center, red shirt) -->
           <ellipse cx="100" cy="130" rx="9" ry="12" fill="#5cc8d8"/>
           <ellipse cx="100" cy="120" rx="7" ry="8" fill="#5cc8d8"/>
           <ellipse cx="97" cy="118" rx="2" ry="2.5" fill="#222"/>
           <ellipse cx="103" cy="118" rx="2" ry="2.5" fill="#222"/>
-          <!-- Alien 2 (left) -->
           <ellipse cx="55" cy="135" rx="8" ry="11" fill="#4ab8c8"/>
           <ellipse cx="55" cy="126" rx="6.5" ry="7.5" fill="#4ab8c8"/>
           <ellipse cx="52.5" cy="124" rx="1.8" ry="2.2" fill="#222"/>
           <ellipse cx="57.5" cy="124" rx="1.8" ry="2.2" fill="#222"/>
-          <!-- Alien 3 (right) -->
           <ellipse cx="148" cy="132" rx="8" ry="10" fill="#6accd8"/>
           <ellipse cx="148" cy="123" rx="6.5" ry="7" fill="#6accd8"/>
           <ellipse cx="145.5" cy="121" rx="1.8" ry="2.2" fill="#222"/>
           <ellipse cx="150.5" cy="121" rx="1.8" ry="2.2" fill="#222"/>
-          <!-- Frequency waves above aliens -->
           <polyline points="70,105 76,99 82,107 88,96 94,104 100,98 106,104 112,96 118,104 124,99 130,105" fill="none" stroke="#00e0c8" stroke-width="1.2" filter="url(#glow3)" opacity="0.8"/>
-          <!-- Panel top decorations (alien glyphs) -->
           <rect x="10" y="55" width="180" height="30" rx="3" fill="rgba(0,0,0,0.4)" stroke="rgba(0,224,200,0.1)" stroke-width="0.3"/>
           <text x="100" y="68" text-anchor="middle" fill="rgba(0,224,200,0.4)" font-size="5" font-family="monospace" letter-spacing="3">∿∿∿ ◆ ∿∿∿</text>
           <text x="100" y="78" text-anchor="middle" fill="rgba(0,224,200,0.25)" font-size="4" font-family="monospace" letter-spacing="4">· · · SF · · ·</text>
-          <!-- Title -->
           <text x="100" y="195" text-anchor="middle" fill="rgba(0,224,200,0.5)" font-size="7" font-family="'DM Mono', monospace" letter-spacing="2">SOMOS FRECUENCIA</text>
         </svg>
         <div class="radio-art-spin" id="radioArtSpin"></div>
@@ -1687,7 +1703,10 @@ body {
 
 <!-- FOOTER -->
 <footer class="footer">
-  <span class="footer-copy">© 2025 SOMOS FRECUENCIA</span>
+  <div class="footer-logo">
+    <img src="logo-sf.png" alt="SF">
+    <span class="footer-copy">© 2025 SOMOS FRECUENCIA</span>
+  </div>
   <div class="footer-links">
     <a href="#">Instagram</a>
     <a href="#">Contacto</a>
@@ -1696,6 +1715,19 @@ body {
 </footer>
 
 <script>
+/* ═══════════════════════════════════════
+   LOGO INLINE SVG EMBED
+   El logo PNG es negro sobre blanco.
+   Lo convertimos a data URI inline para
+   no depender de archivo externo.
+   Usamos CSS filter para colorear.
+═══════════════════════════════════════ */
+
+// Inyectar el logo como data URI desde el PNG adjunto
+// Si tienes el archivo logo-sf.png en el mismo directorio, 
+// las referencias href="logo-sf.png" funcionarán directamente.
+// Si quieres embeber inline, reemplaza con base64 del PNG.
+
 /* ═══════════════════════════════════════
    PRODUCTS & CART
 ═══════════════════════════════════════ */
@@ -1814,7 +1846,6 @@ function scrollToId(id) {
       ctx.arc(s.x % W, s.y % H, s.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(180,200,255,${s.alpha * tw})`;
       ctx.fill();
-      // slow drift
       s.y -= s.speed;
       if (s.y < 0) { s.y = H; s.x = Math.random() * W; }
     });
@@ -1847,7 +1878,6 @@ function scrollToId(id) {
     ctx.strokeStyle = 'rgba(0,224,200,0.06)';
     ctx.lineWidth = 0.5;
 
-    // Horizontal lines (receding)
     for (let i = 0; i <= numH; i++) {
       const t = i / numH;
       const y = (t * H * 1.2 - offset * t) % H;
@@ -1859,7 +1889,6 @@ function scrollToId(id) {
       ctx.stroke();
     }
 
-    // Vertical lines converging
     for (let i = -numV/2; i <= numV/2; i++) {
       const fx = vx + (i / (numV/2)) * W * 0.55;
       ctx.globalAlpha = 0.08;
@@ -2065,17 +2094,14 @@ progressBar.addEventListener('click', e => {
 volSlider.addEventListener('input', () => { audio.volume = volSlider.value; });
 audio.volume = 0.8;
 
-// Load first track (don't autoplay — browser policy)
 loadTrack(0);
 
-// Show mini radio after scrolling past hero
 const radioMiniObs = new IntersectionObserver(entries => {
   const heroVisible = entries[0].isIntersecting;
   radioMini.classList.toggle('visible', !heroVisible && isPlaying);
 }, { threshold: 0.1 });
 radioMiniObs.observe(document.getElementById('top'));
 
-// Keep mini synced
 setInterval(() => {
   if (isPlaying) radioMini.classList.add('visible');
 }, 2000);
@@ -2089,9 +2115,8 @@ setInterval(() => {
   const NUM_VIZ_BARS = 64;
   let W, H;
 
-  // Simulated freq data (fallback & enhancement)
-  const simPhases = Array.from({length: NUM_VIZ_BARS}, (_, i) => Math.random() * Math.PI * 2);
-  const simSpeeds = Array.from({length: NUM_VIZ_BARS}, (_, i) => 0.02 + Math.random() * 0.05);
+  const simPhases = Array.from({length: NUM_VIZ_BARS}, () => Math.random() * Math.PI * 2);
+  const simSpeeds = Array.from({length: NUM_VIZ_BARS}, () => 0.02 + Math.random() * 0.05);
   const simAmps   = Array.from({length: NUM_VIZ_BARS}, (_, i) => {
     const center = NUM_VIZ_BARS / 2;
     const dist = Math.abs(i - center) / center;
@@ -2109,18 +2134,15 @@ setInterval(() => {
   let vizT = 0;
 
   function getFreqData() {
-    // If real audio analyser is connected, use it
     if (analyser && audioConnected && isPlaying) {
       try {
         const data = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(data);
-        // Map to 0..1 range, take first NUM_VIZ_BARS bins
         const step = Math.floor(data.length / NUM_VIZ_BARS);
         return Array.from({length: NUM_VIZ_BARS}, (_, i) => data[i * step] / 255);
       } catch(e) {}
     }
 
-    // Simulated data
     vizT += 0.03;
     const base = isPlaying ? 1 : 0.15;
     return Array.from({length: NUM_VIZ_BARS}, (_, i) => {
@@ -2136,38 +2158,25 @@ setInterval(() => {
     ctx.clearRect(0, 0, W, H);
 
     const freqData = getFreqData();
-
-    // ─── 3D Perspective setup ───
-    // Camera looks down at a floor grid of bars
     const barW = (W * 0.85) / NUM_VIZ_BARS;
     const startX = W * 0.075;
 
-    // Floor reflection gradient
     const floorGrad = ctx.createLinearGradient(0, H * 0.55, 0, H);
     floorGrad.addColorStop(0, 'rgba(0,224,200,0.04)');
     floorGrad.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = floorGrad;
     ctx.fillRect(0, H * 0.55, W, H * 0.45);
 
-    // Draw bars + reflections
     for (let i = 0; i < NUM_VIZ_BARS; i++) {
       const val = freqData[i];
       const x = startX + i * (W * 0.85 / NUM_VIZ_BARS);
-
-      // 3D perspective: apply skew/scale
       const perspectiveFactor = 0.85 + 0.15 * (i / NUM_VIZ_BARS);
       const maxBarH = H * 0.48;
       const barH = val * maxBarH * perspectiveFactor;
       const baseY = H * 0.58;
-
-      // Color based on intensity
-      const hue = val > 0.6 ? 0 : (val > 0.35 ? 174 : 200);
-      const saturation = val > 0.6 ? '0%' : (val > 0.35 ? '100%' : '20%');
-      const lightness = val > 0.6 ? `${50 + val * 30}%` : (val > 0.35 ? `${40 + val * 20}%` : `${15 + val * 20}%`);
       const alpha = 0.3 + val * 0.7;
       const bw = Math.max(2, barW - 1);
 
-      // Glow for active bars
       if (val > 0.5) {
         ctx.shadowColor = 'rgba(0,224,200,0.6)';
         ctx.shadowBlur = 8 + val * 12;
@@ -2175,7 +2184,6 @@ setInterval(() => {
         ctx.shadowBlur = 0;
       }
 
-      // Bar gradient
       const barGrad = ctx.createLinearGradient(x, baseY - barH, x, baseY);
       if (val > 0.7) {
         barGrad.addColorStop(0, `rgba(255,255,255,${alpha})`);
@@ -2189,10 +2197,8 @@ setInterval(() => {
         barGrad.addColorStop(1, `rgba(20,30,60,${alpha * 0.3})`);
       }
 
-      // Draw bar
       ctx.fillStyle = barGrad;
       ctx.beginPath();
-      // Slight 3D trapezoid effect (top narrower)
       const topW = bw * 0.85;
       const topOffL = (bw - topW) / 2;
       ctx.moveTo(x + topOffL, baseY - barH);
@@ -2202,14 +2208,12 @@ setInterval(() => {
       ctx.closePath();
       ctx.fill();
 
-      // Top cap (glowing)
       if (val > 0.4) {
         ctx.shadowBlur = 0;
         ctx.fillStyle = `rgba(0,224,200,${val * 0.8})`;
         ctx.fillRect(x + topOffL, baseY - barH - 1.5, topW, 2);
       }
 
-      // Reflection below
       ctx.shadowBlur = 0;
       const reflGrad = ctx.createLinearGradient(x, baseY, x, baseY + barH * 0.35);
       reflGrad.addColorStop(0, `rgba(0,224,200,${val * 0.15})`);
@@ -2225,8 +2229,6 @@ setInterval(() => {
     }
 
     ctx.shadowBlur = 0;
-
-    // ─── Floor line ───
     ctx.strokeStyle = 'rgba(0,224,200,0.12)';
     ctx.lineWidth = 0.5;
     ctx.beginPath();
@@ -2234,7 +2236,6 @@ setInterval(() => {
     ctx.lineTo(W * 0.96, H * 0.58);
     ctx.stroke();
 
-    // ─── SF logo watermark ───
     ctx.globalAlpha = 0.08;
     ctx.fillStyle = '#00e0c8';
     ctx.font = `${W * 0.06}px 'Bebas Neue', sans-serif`;
@@ -2263,15 +2264,13 @@ const miniHeights = [4, 8, 5, 10, 6];
       b.style.height = Math.max(2, h) + 'px';
     });
   } else {
-    miniBars.forEach((b, i) => {
-      if (b) b.style.height = '3px';
-    });
+    miniBars.forEach((b) => { if (b) b.style.height = '3px'; });
   }
   requestAnimationFrame(animMiniBars);
 })();
 
 /* ═══════════════════════════════════════
-   TRACKLIST BARS ANIMATION (active)
+   TRACKLIST BARS ANIMATION
 ═══════════════════════════════════════ */
 let tlT = 0;
 (function animTrackBars() {
@@ -2332,7 +2331,6 @@ function closeMobileNav() {
 window.toggleMobileNav = toggleMobileNav;
 window.closeMobileNav = closeMobileNav;
 
-// Close nav on outside click
 document.addEventListener('click', e => {
   const navRight = document.getElementById('navRight');
   const hamburger = document.getElementById('navHamburger');
@@ -2344,15 +2342,14 @@ document.addEventListener('click', e => {
 });
 
 /* ═══════════════════════════════════════
-   TOUCH: disable 3D tilt on mobile
+   LOGO: aplicar color freq dinámico al hover
+   Para el SVG inline del nav
 ═══════════════════════════════════════ */
-if ('ontouchstart' in window) {
-  document.querySelectorAll('.shirt-card, .mc, .movimiento-card').forEach(card => {
-    card.removeEventListener('mousemove', () => {});
-    card.style.transform = '';
-  });
-}
-
+(function() {
+  // Intentar colorear logo imgs a teal en hover via JS como respaldo
+  const logoImgs = document.querySelectorAll('.logo-img, .hero-logo-mark img');
+  // Las transiciones CSS ya manejan esto via filter
+})();
 </script>
 </body>
 </html>
