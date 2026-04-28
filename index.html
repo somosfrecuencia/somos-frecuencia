@@ -1198,10 +1198,8 @@ body {
 </head>
 <body>
 
-<!-- STARFIELD CANVAS -->
 <canvas id="starfield"></canvas>
 
-<!-- CART OVERLAY -->
 <div class="cart-overlay" id="cartOverlay"></div>
 <div class="cart-panel" id="cartPanel">
   <div class="cart-header">
@@ -1220,14 +1218,10 @@ body {
   </div>
 </div>
 
-<!-- NAV -->
 <nav class="nav">
   <a class="logo" href="#top">
-    <!-- Logo SF inline SVG (blanco, se colorea al hover) -->
     <svg class="logo-img" viewBox="0 0 850 980" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Logo path del PNG provisto — recreado como SVG path simplificado -->
-      <!-- Dado que el logo es una imagen PNG, lo embebemos como SVG con image tag -->
-      <image href="logo-sf.png" x="0" y="0" width="850" height="980"/>
+      <image href="PNG_ISO-W01.jpg" x="0" y="0" width="850" height="980"/>
     </svg>
     <span class="logo-text">SOMOS <span>FRECUENCIA</span></span>
   </a>
@@ -1246,15 +1240,12 @@ body {
   </button>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="top">
-  <!-- Decorative planets -->
   <div class="hero-planet"></div>
   <div class="hero-planet-sm"></div>
 
-  <!-- Logo mark hero -->
   <div class="hero-logo-mark">
-    <img src="logo-sf.png" alt="Somos Frecuencia" class="teal">
+    <img src="PNG_ISO-W01.jpg" alt="Somos Frecuencia" class="teal">
   </div>
 
   <p class="hero-eyebrow">Transmisión activa</p>
@@ -1265,10 +1256,8 @@ body {
   </h1>
   <p class="hero-sub">Un movimiento · Música · Mentoría · Cultura · Comunidad</p>
 
-  <!-- Hero freq bars -->
   <div class="freq-wrap" id="freqWrap"></div>
 
-  <!-- Perspective grid -->
   <div class="hero-grid-lines">
     <canvas id="gridCanvas"></canvas>
   </div>
@@ -1276,21 +1265,18 @@ body {
 
 <div class="glyph-divider">◆ · · ∿ · ◆ · ∿ · · ◆ · ∿ · ◆ · · ∿ · ◆</div>
 
-<!-- RADIO STATION -->
 <section class="radio-section" id="radio">
 
   <p class="radio-top-label reveal">Somos Frecuencia Radio — En Vivo</p>
 
   <div class="radio-inner">
 
-    <!-- LEFT: Player Controls -->
     <div class="radio-left reveal">
       <div class="on-air-badge">
         <div class="on-air-dot" id="onAirDot"></div>
         <span>On Air — Transmitiendo</span>
       </div>
 
-      <!-- Album art -->
       <div class="radio-art" id="radioArt">
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -1350,13 +1336,11 @@ body {
         <div class="radio-art-spin" id="radioArtSpin"></div>
       </div>
 
-      <!-- Track info -->
       <div class="radio-track-info">
         <p class="radio-track-name" id="radioTrackName">Somos Frecuencia — Mix I</p>
         <p class="radio-track-artist" id="radioTrackArtist">Armando Toledano</p>
       </div>
 
-      <!-- Progress -->
       <div class="radio-progress">
         <div class="radio-progress-bar" id="progressBar">
           <div class="radio-progress-fill" id="radioFill"></div>
@@ -1367,14 +1351,12 @@ body {
         </div>
       </div>
 
-      <!-- Controls -->
       <div class="radio-controls">
         <button class="rc-btn" id="rcPrev" title="Anterior">⟨⟨</button>
         <button class="rc-btn play-btn" id="rcPlay">▶</button>
         <button class="rc-btn" id="rcNext" title="Siguiente">⟩⟩</button>
       </div>
 
-      <!-- Volume -->
       <div class="radio-vol">
         <span class="vol-icon">🔈</span>
         <input type="range" class="vol-slider" id="volSlider" min="0" max="1" step="0.01" value="0.8">
@@ -1382,15 +1364,12 @@ body {
       </div>
     </div>
 
-    <!-- RIGHT: 3D Visualizer + Tracklist -->
     <div class="radio-right reveal" style="transition-delay:0.15s">
 
-      <!-- 3D Frequency Visualizer -->
       <div class="viz-panel">
         <canvas id="vizCanvas3D"></canvas>
       </div>
 
-      <!-- Tracklist -->
       <div class="tracklist">
         <div class="tracklist-header">
           <span>Lista de reproducción</span>
@@ -1447,10 +1426,8 @@ body {
   </div>
 </section>
 
-<!-- hidden audio element -->
 <audio id="radioAudio" crossorigin="anonymous"></audio>
 
-<!-- Floating mini radio indicator -->
 <div class="radio-mini" id="radioMini" onclick="scrollToId('radio')">
   <div class="radio-mini-dot" id="miniDot"></div>
   <div class="radio-mini-bars" id="miniBarWrap">
@@ -1465,7 +1442,6 @@ body {
 
 <div class="glyph-divider">· ∿ · · ◆ · ∿ · · ◆ · ∿ · · ◆ · ∿ ·</div>
 
-<!-- FEATURED PRODUCT -->
 <section class="section" id="pendrive">
   <p class="section-label reveal">Producto Destacado — The Access Pendrive</p>
   <div class="feat-grid">
@@ -1535,7 +1511,6 @@ body {
   </div>
 </section>
 
-<!-- APPAREL -->
 <section class="section" id="apparel">
   <p class="section-label reveal">Apparel — Somos Frecuencia Collection</p>
   <div class="shirts-grid">
@@ -1608,7 +1583,6 @@ body {
   </div>
 </section>
 
-<!-- MENTORIAS -->
 <section class="section" id="mentorias">
   <p class="section-label reveal">Mentorías — Formación Musical</p>
   <div class="mentor-grid">
@@ -1645,7 +1619,6 @@ body {
   </div>
 </section>
 
-<!-- COMUNIDAD -->
 <section class="section" id="comunidad">
   <p class="section-label reveal">El Movimiento — Lo que incluye el acceso</p>
   <div class="movimiento-grid">
@@ -1667,7 +1640,6 @@ body {
   </div>
 </section>
 
-<!-- TESTIMONIOS -->
 <section class="section">
   <p class="section-label reveal">Testimonios — La comunidad habla</p>
   <div class="testi-grid">
@@ -1694,17 +1666,15 @@ body {
   </div>
 </section>
 
-<!-- MANIFESTO -->
 <section class="manifesto reveal">
   <p class="manifesto-eyebrow">El Manifiesto</p>
   <h2>La música no es un producto.<br><em>Es una forma de existir.</em></h2>
   <button class="btn-cta" onclick="addToCart('pendrive'); setTimeout(openCart, 350)">Obtener acceso ahora →</button>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-logo">
-    <img src="logo-sf.png" alt="SF">
+    <img src="PNG_ISO-W01.jpg" alt="SF">
     <span class="footer-copy">© 2025 SOMOS FRECUENCIA</span>
   </div>
   <div class="footer-links">
@@ -1724,8 +1694,8 @@ body {
 ═══════════════════════════════════════ */
 
 // Inyectar el logo como data URI desde el PNG adjunto
-// Si tienes el archivo logo-sf.png en el mismo directorio, 
-// las referencias href="logo-sf.png" funcionarán directamente.
+// Si tienes el archivo PNG_ISO-W01.jpg en el mismo directorio, 
+// las referencias href="PNG_ISO-W01.jpg" funcionarán directamente.
 // Si quieres embeber inline, reemplaza con base64 del PNG.
 
 /* ═══════════════════════════════════════
