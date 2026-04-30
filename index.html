@@ -840,36 +840,51 @@ body {
 .shirt-card {
   border: 0.5px solid var(--b1);
   border-radius: 4px; overflow: hidden;
-  transition: border-color 0.3s, transform 0.3s;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
   transform-style: preserve-3d;
   perspective: 800px;
-  background: var(--deep);
+  background: var(--card);
 }
 .shirt-card:hover {
-  border-color: var(--b3);
   transform: translateY(-4px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 0 0 0.5px var(--b2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
 }
+/* Dark variant card */
+.shirt-card--dark {
+  background: #0e0e18;
+  border-color: rgba(255,255,255,0.07);
+}
+.shirt-card--dark:hover {
+  border-color: rgba(0,191,168,0.25);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(0,191,168,0.12);
+}
+.shirt-card--dark .shirt-name { color: #d8d8e8; }
+.shirt-card--dark .shirt-price { color: var(--b4); }
+.shirt-card--dark .btn-secondary {
+  border-color: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.45);
+}
+.shirt-card--dark .btn-secondary:hover {
+  background: rgba(0,191,168,0.12);
+  border-color: rgba(0,191,168,0.4);
+  color: var(--freq);
+}
+
 .shirt-visual {
   display: flex; align-items: center; justify-content: center;
-  height: 200px; background: var(--surface);
+  height: 200px;
   transition: background 0.3s; position: relative; overflow: hidden;
 }
-.shirt-visual::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 50%);
-  pointer-events: none;
+.shirt-visual--light {
+  background: #f2f2f8;
 }
-.shirt-card:hover .shirt-visual { background: var(--b1); }
-/* Dark tee cards get a dark background so the shirts stand out */
-.shirt-card[data-color="dark"] .shirt-visual {
-  background: #101018;
+.shirt-visual--dark {
+  background: #080812;
 }
-.shirt-card[data-color="dark"]:hover .shirt-visual {
-  background: #18181f;
-}
+.shirt-card:hover .shirt-visual--light { background: #eaeaf4; }
+.shirt-card--dark:hover .shirt-visual--dark { background: #0d0d1c; }
+
 .shirt-info { padding: 14px 16px; }
 .shirt-name { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--b7); font-weight: 300; margin-bottom: 4px; }
 .shirt-price { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--b4); margin-bottom: 10px; }
@@ -900,6 +915,16 @@ body {
   border-radius: 50%;
   object-fit: cover;
   object-position: center top;
+  display: block;
+  border: 0.5px solid rgba(0,191,168,0.25);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08), 0 0 0 2px rgba(0,224,200,0.10);
+  position: relative;
+  z-index: 1;
+}
+.mentor-photo-placeholder {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
   display: block;
   border: 0.5px solid rgba(0,191,168,0.25);
   box-shadow: 0 4px 20px rgba(0,0,0,0.08), 0 0 0 2px rgba(0,224,200,0.10);
@@ -1789,19 +1814,25 @@ body {
 <section class="section" id="apparel">
   <p class="section-label reveal">Apparel — Somos Frecuencia Collection</p>
   <div class="shirts-grid">
+
+    <!-- Tee Blanca -->
     <div class="shirt-card reveal">
-      <div class="shirt-visual">
-        <svg width="118" height="118" viewBox="0 0 118 118">
+      <div class="shirt-visual shirt-visual--light">
+        <svg width="160" height="160" viewBox="0 0 118 118" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="shirtWGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#f0f0f8"/>
-              <stop offset="100%" stop-color="#e0e0ee"/>
+              <stop offset="0%" stop-color="#f8f8ff"/>
+              <stop offset="100%" stop-color="#e8e8f4"/>
             </linearGradient>
+            <filter id="shirtWShadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.15)"/>
+            </filter>
           </defs>
-          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z" fill="url(#shirtWGrad)" stroke="#ccc" stroke-width="0.4"/>
-          <path d="M45,28 Q59,22 73,28" fill="none" stroke="#ccc" stroke-width="0.5"/>
-          <text x="59" y="72" text-anchor="middle" fill="#111" font-size="6" font-family="'DM Mono',monospace" letter-spacing="1.8">SOMOS</text>
-          <text x="59" y="82" text-anchor="middle" fill="#555" font-size="5" font-family="'DM Mono',monospace" letter-spacing="1.2">FRECUENCIA</text>
+          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z"
+                fill="url(#shirtWGrad)" stroke="#c8c8d8" stroke-width="0.6" filter="url(#shirtWShadow)"/>
+          <path d="M45,28 Q59,22 73,28" fill="none" stroke="#c0c0d0" stroke-width="0.6"/>
+          <text x="59" y="70" text-anchor="middle" fill="#1a1a2e" font-size="6.5" font-family="'DM Mono',monospace" letter-spacing="2" font-weight="500">SOMOS</text>
+          <text x="59" y="81" text-anchor="middle" fill="#444466" font-size="5.5" font-family="'DM Mono',monospace" letter-spacing="1.5">FRECUENCIA</text>
         </svg>
       </div>
       <div class="shirt-info">
@@ -1810,19 +1841,25 @@ body {
         <button class="btn-secondary" onclick="addToCart('shirt_w')">Añadir al carrito →</button>
       </div>
     </div>
-    <div class="shirt-card reveal" data-color="dark" style="transition-delay:0.1s">
-      <div class="shirt-visual">
-        <svg width="118" height="118" viewBox="0 0 118 118">
+
+    <!-- Tee Negra -->
+    <div class="shirt-card reveal shirt-card--dark" style="transition-delay:0.1s">
+      <div class="shirt-visual shirt-visual--dark">
+        <svg width="160" height="160" viewBox="0 0 118 118" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="shirtBGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#08080f"/>
-              <stop offset="100%" stop-color="#04040a"/>
+            <linearGradient id="shirtBGrad" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0%" stop-color="#1c1c28"/>
+              <stop offset="100%" stop-color="#0a0a14"/>
             </linearGradient>
+            <filter id="shirtBShadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.5)"/>
+            </filter>
           </defs>
-          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z" fill="url(#shirtBGrad)" stroke="#d8d8d8" stroke-width="0.4"/>
-          <path d="M45,28 Q59,22 73,28" fill="none" stroke="#d8d8d8" stroke-width="0.5"/>
-          <text x="59" y="72" text-anchor="middle" fill="#f5f0e8" font-size="6" font-family="'DM Mono',monospace" letter-spacing="1.8">SOMOS</text>
-          <text x="59" y="82" text-anchor="middle" fill="#00bfa8" font-size="5" font-family="'DM Mono',monospace" letter-spacing="1.2">FRECUENCIA</text>
+          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z"
+                fill="url(#shirtBGrad)" stroke="rgba(255,255,255,0.12)" stroke-width="0.6" filter="url(#shirtBShadow)"/>
+          <path d="M45,28 Q59,22 73,28" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/>
+          <text x="59" y="70" text-anchor="middle" fill="#f5f0e8" font-size="6.5" font-family="'DM Mono',monospace" letter-spacing="2">SOMOS</text>
+          <text x="59" y="81" text-anchor="middle" fill="#00bfa8" font-size="5.5" font-family="'DM Mono',monospace" letter-spacing="1.5">FRECUENCIA</text>
         </svg>
       </div>
       <div class="shirt-info">
@@ -1831,22 +1868,30 @@ body {
         <button class="btn-secondary" onclick="addToCart('shirt_b')">Añadir al carrito →</button>
       </div>
     </div>
-    <div class="shirt-card reveal" data-color="dark" style="transition-delay:0.2s">
-      <div class="shirt-visual">
-        <svg width="118" height="118" viewBox="0 0 118 118">
+
+    <!-- La Señal Edición Especial -->
+    <div class="shirt-card reveal shirt-card--dark" style="transition-delay:0.2s">
+      <div class="shirt-visual shirt-visual--dark">
+        <svg width="160" height="160" viewBox="0 0 118 118" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="shirtCGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#060610"/>
-              <stop offset="100%" stop-color="#03030a"/>
+            <linearGradient id="shirtCGrad" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0%" stop-color="#0e0e1a"/>
+              <stop offset="100%" stop-color="#060610"/>
             </linearGradient>
             <filter id="freqGlow2">
-              <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
               <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
+            <filter id="shirtCShadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.6)"/>
+            </filter>
           </defs>
-          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z" fill="url(#shirtCGrad)" stroke="#222230" stroke-width="0.4"/>
-          <polyline points="30,68 34,62 37,74 41,58 44,72 47,64 51,70 55,60 59,68 63,60 67,72 70,62 73,68 76,58 79,72 83,62 87,68" fill="none" stroke="#00bfa8" stroke-width="0.8" filter="url(#freqGlow2)" opacity="0.9"/>
-          <text x="59" y="88" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="5" font-family="'DM Mono',monospace" letter-spacing="1.5">LA SEÑAL</text>
+          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z"
+                fill="url(#shirtCGrad)" stroke="rgba(0,191,168,0.2)" stroke-width="0.6" filter="url(#shirtCShadow)"/>
+          <path d="M45,28 Q59,22 73,28" fill="none" stroke="rgba(0,191,168,0.15)" stroke-width="0.6"/>
+          <polyline points="28,66 32,59 36,73 40,55 44,69 48,61 52,67 56,57 59,65 62,57 66,69 70,59 74,66 78,55 82,70 86,60 90,67"
+                    fill="none" stroke="#00bfa8" stroke-width="1.2" filter="url(#freqGlow2)" opacity="0.95"/>
+          <text x="59" y="86" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="5.5" font-family="'DM Mono',monospace" letter-spacing="2">LA SEÑAL</text>
         </svg>
       </div>
       <div class="shirt-info">
@@ -1855,6 +1900,7 @@ body {
         <button class="btn-secondary" onclick="addToCart('shirt_c')">Añadir al carrito →</button>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1863,7 +1909,26 @@ body {
   <div class="mentor-grid">
     <div class="reveal-left">
       <div class="mentor-photo-wrap">
-        <img src="https://raw.githubusercontent.com/somosfrecuencia/somos-frecuencia/main/mentor-photo.jpg" alt="Armando Toledano Uzcategui" class="mentor-photo" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 130 130\'%3E%3Crect width=\'130\' height=\'130\' rx=\'65\' fill=\'%23e8e8e8\'/%3E%3Ccircle cx=\'65\' cy=\'50\' r=\'24\' fill=\'%23d0d0d0\'/%3E%3Cellipse cx=\'65\' cy=\'105\' rx=\'38\' ry=\'28\' fill=\'%23d0d0d0\'/%3E%3Ccircle cx=\'65\' cy=\'65\' r=\'64\' fill=\'none\' stroke=\'%2300bfa8\' stroke-width=\'1\' stroke-opacity=\'0.3\'/%3E%3C/svg%3E'" />
+        <!-- Placeholder SVG visible by default; replaced by real photo once uploaded to GitHub -->
+        <svg class="mentor-photo mentor-photo-placeholder" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg" id="mentorPlaceholder">
+          <defs>
+            <radialGradient id="avatarBg" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#e4e4e4"/>
+              <stop offset="100%" stop-color="#d4d4d4"/>
+            </radialGradient>
+          </defs>
+          <circle cx="65" cy="65" r="65" fill="url(#avatarBg)"/>
+          <circle cx="65" cy="50" r="23" fill="#b8b8b8"/>
+          <ellipse cx="65" cy="108" rx="40" ry="30" fill="#b8b8b8"/>
+          <circle cx="65" cy="65" r="63" fill="none" stroke="rgba(0,191,168,0.35)" stroke-width="1.5"/>
+        </svg>
+        <img src="https://raw.githubusercontent.com/somosfrecuencia/somos-frecuencia/main/mentor-photo.jpg"
+             alt="Armando Toledano Uzcategui"
+             class="mentor-photo"
+             id="mentorPhoto"
+             style="display:none"
+             onload="this.style.display='block';document.getElementById('mentorPlaceholder').style.display='none';"
+             onerror="this.style.display='none';" />
         <div class="mentor-photo-ring"></div>
         <div class="mentor-online-badge">
           <span class="mentor-online-dot"></span>
