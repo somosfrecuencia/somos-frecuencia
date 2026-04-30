@@ -838,65 +838,43 @@ body {
   gap: 16px; max-width: 860px; margin: 0 auto;
 }
 .shirt-card {
-  border: 0.5px solid var(--b1);
+  background: #0c0c18;
+  border: 0.5px solid rgba(255,255,255,0.07);
   border-radius: 4px; overflow: hidden;
   transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
   transform-style: preserve-3d;
   perspective: 800px;
-  background: var(--card);
 }
 .shirt-card:hover {
+  border-color: rgba(0,191,168,0.28);
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(0,191,168,0.10);
 }
-/* Dark variant card */
-.shirt-card--dark {
-  background: #0e0e18;
-  border-color: rgba(255,255,255,0.07);
-}
-.shirt-card--dark:hover {
-  border-color: rgba(0,191,168,0.25);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(0,191,168,0.12);
-}
-.shirt-card--dark .shirt-name { color: #d8d8e8; }
-.shirt-card--dark .shirt-price { color: var(--b4); }
-.shirt-card--dark .btn-secondary {
-  border-color: rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.45);
-}
-.shirt-card--dark .btn-secondary:hover {
-  background: rgba(0,191,168,0.12);
-  border-color: rgba(0,191,168,0.4);
-  color: var(--freq);
-}
-
 .shirt-visual {
   display: flex; align-items: center; justify-content: center;
   height: 200px;
+  background: #080812;
   transition: background 0.3s; position: relative; overflow: hidden;
 }
-.shirt-visual--light {
-  background: #f2f2f8;
-}
-.shirt-visual--dark {
-  background: #080812;
-}
-.shirt-card:hover .shirt-visual--light { background: #eaeaf4; }
-.shirt-card--dark:hover .shirt-visual--dark { background: #0d0d1c; }
-
+.shirt-card:hover .shirt-visual { background: #0b0b1a; }
 .shirt-info { padding: 14px 16px; }
-.shirt-name { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--b7); font-weight: 300; margin-bottom: 4px; }
-.shirt-price { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--b4); margin-bottom: 10px; }
+.shirt-name { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #d0d0e0; font-weight: 300; margin-bottom: 4px; }
+.shirt-price { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--b5); margin-bottom: 10px; }
 .btn-secondary {
   width: 100%; padding: 9px;
-  background: transparent; color: var(--b5);
-  border: 0.5px solid var(--b2);
+  background: transparent;
+  color: rgba(255,255,255,0.38);
+  border: 0.5px solid rgba(255,255,255,0.10);
   font-family: 'DM Mono', monospace;
   font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase;
   cursor: pointer; border-radius: 2px; transition: all 0.2s;
 }
-.btn-secondary:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+.btn-secondary:hover {
+  background: rgba(0,191,168,0.10);
+  color: var(--freq);
+  border-color: rgba(0,191,168,0.35);
+}
 
 /* ═══ MENTORIAS ═══ */
 .mentor-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 44px; max-width: 860px; margin: 0 auto; align-items: start; }
@@ -1817,22 +1795,22 @@ body {
 
     <!-- Tee Blanca -->
     <div class="shirt-card reveal">
-      <div class="shirt-visual shirt-visual--light">
+      <div class="shirt-visual">
         <svg width="160" height="160" viewBox="0 0 118 118" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="shirtWGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#f8f8ff"/>
-              <stop offset="100%" stop-color="#e8e8f4"/>
+            <linearGradient id="shirtWGrad" x1="0" y1="0" x2="0.2" y2="1">
+              <stop offset="0%" stop-color="#f5f5ff"/>
+              <stop offset="100%" stop-color="#e2e2f0"/>
             </linearGradient>
-            <filter id="shirtWShadow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.15)"/>
+            <filter id="shirtWShadow">
+              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(0,0,0,0.45)"/>
             </filter>
           </defs>
           <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z"
-                fill="url(#shirtWGrad)" stroke="#c8c8d8" stroke-width="0.6" filter="url(#shirtWShadow)"/>
-          <path d="M45,28 Q59,22 73,28" fill="none" stroke="#c0c0d0" stroke-width="0.6"/>
-          <text x="59" y="70" text-anchor="middle" fill="#1a1a2e" font-size="6.5" font-family="'DM Mono',monospace" letter-spacing="2" font-weight="500">SOMOS</text>
-          <text x="59" y="81" text-anchor="middle" fill="#444466" font-size="5.5" font-family="'DM Mono',monospace" letter-spacing="1.5">FRECUENCIA</text>
+                fill="url(#shirtWGrad)" stroke="rgba(255,255,255,0.3)" stroke-width="0.5" filter="url(#shirtWShadow)"/>
+          <path d="M45,28 Q59,22 73,28" fill="none" stroke="rgba(200,200,220,0.6)" stroke-width="0.6"/>
+          <text x="59" y="70" text-anchor="middle" fill="#1a1a2e" font-size="6.5" font-family="'DM Mono',monospace" letter-spacing="2">SOMOS</text>
+          <text x="59" y="81" text-anchor="middle" fill="#555577" font-size="5.5" font-family="'DM Mono',monospace" letter-spacing="1.5">FRECUENCIA</text>
         </svg>
       </div>
       <div class="shirt-info">
@@ -1843,22 +1821,22 @@ body {
     </div>
 
     <!-- Tee Negra -->
-    <div class="shirt-card reveal shirt-card--dark" style="transition-delay:0.1s">
-      <div class="shirt-visual shirt-visual--dark">
+    <div class="shirt-card reveal" style="transition-delay:0.1s">
+      <div class="shirt-visual">
         <svg width="160" height="160" viewBox="0 0 118 118" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="shirtBGrad" x1="0" y1="0" x2="0.4" y2="1">
-              <stop offset="0%" stop-color="#1c1c28"/>
+            <linearGradient id="shirtBGrad" x1="0" y1="0" x2="0.2" y2="1">
+              <stop offset="0%" stop-color="#1c1c2a"/>
               <stop offset="100%" stop-color="#0a0a14"/>
             </linearGradient>
-            <filter id="shirtBShadow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.5)"/>
+            <filter id="shirtBShadow">
+              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(0,0,0,0.6)"/>
             </filter>
           </defs>
           <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z"
-                fill="url(#shirtBGrad)" stroke="rgba(255,255,255,0.12)" stroke-width="0.6" filter="url(#shirtBShadow)"/>
-          <path d="M45,28 Q59,22 73,28" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/>
-          <text x="59" y="70" text-anchor="middle" fill="#f5f0e8" font-size="6.5" font-family="'DM Mono',monospace" letter-spacing="2">SOMOS</text>
+                fill="url(#shirtBGrad)" stroke="rgba(255,255,255,0.10)" stroke-width="0.5" filter="url(#shirtBShadow)"/>
+          <path d="M45,28 Q59,22 73,28" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.6"/>
+          <text x="59" y="70" text-anchor="middle" fill="#f0ebe0" font-size="6.5" font-family="'DM Mono',monospace" letter-spacing="2">SOMOS</text>
           <text x="59" y="81" text-anchor="middle" fill="#00bfa8" font-size="5.5" font-family="'DM Mono',monospace" letter-spacing="1.5">FRECUENCIA</text>
         </svg>
       </div>
@@ -1870,28 +1848,28 @@ body {
     </div>
 
     <!-- La Señal Edición Especial -->
-    <div class="shirt-card reveal shirt-card--dark" style="transition-delay:0.2s">
-      <div class="shirt-visual shirt-visual--dark">
+    <div class="shirt-card reveal" style="transition-delay:0.2s">
+      <div class="shirt-visual">
         <svg width="160" height="160" viewBox="0 0 118 118" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="shirtCGrad" x1="0" y1="0" x2="0.4" y2="1">
-              <stop offset="0%" stop-color="#0e0e1a"/>
+            <linearGradient id="shirtCGrad" x1="0" y1="0" x2="0.2" y2="1">
+              <stop offset="0%" stop-color="#0e0e1c"/>
               <stop offset="100%" stop-color="#060610"/>
             </linearGradient>
             <filter id="freqGlow2">
-              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              <feGaussianBlur stdDeviation="2" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
-            <filter id="shirtCShadow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.6)"/>
+            <filter id="shirtCShadow">
+              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(0,0,0,0.6)"/>
             </filter>
           </defs>
           <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z"
-                fill="url(#shirtCGrad)" stroke="rgba(0,191,168,0.2)" stroke-width="0.6" filter="url(#shirtCShadow)"/>
-          <path d="M45,28 Q59,22 73,28" fill="none" stroke="rgba(0,191,168,0.15)" stroke-width="0.6"/>
+                fill="url(#shirtCGrad)" stroke="rgba(0,191,168,0.18)" stroke-width="0.5" filter="url(#shirtCShadow)"/>
+          <path d="M45,28 Q59,22 73,28" fill="none" stroke="rgba(0,191,168,0.12)" stroke-width="0.6"/>
           <polyline points="28,66 32,59 36,73 40,55 44,69 48,61 52,67 56,57 59,65 62,57 66,69 70,59 74,66 78,55 82,70 86,60 90,67"
-                    fill="none" stroke="#00bfa8" stroke-width="1.2" filter="url(#freqGlow2)" opacity="0.95"/>
-          <text x="59" y="86" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="5.5" font-family="'DM Mono',monospace" letter-spacing="2">LA SEÑAL</text>
+                    fill="none" stroke="#00bfa8" stroke-width="1.3" filter="url(#freqGlow2)" opacity="0.95"/>
+          <text x="59" y="86" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="5.5" font-family="'DM Mono',monospace" letter-spacing="2">LA SEÑAL</text>
         </svg>
       </div>
       <div class="shirt-info">
@@ -1922,7 +1900,7 @@ body {
           <ellipse cx="65" cy="108" rx="40" ry="30" fill="#b8b8b8"/>
           <circle cx="65" cy="65" r="63" fill="none" stroke="rgba(0,191,168,0.35)" stroke-width="1.5"/>
         </svg>
-        <img src="https://raw.githubusercontent.com/somosfrecuencia/somos-frecuencia/main/mentor-photo.jpg"
+        <img src="https://raw.githubusercontent.com/somosfrecuencia/somos-frecuencia/main/ChatGPT%20Image%2029%20abr%202026%2C%2010_12_48.png"
              alt="Armando Toledano Uzcategui"
              class="mentor-photo"
              id="mentorPhoto"
