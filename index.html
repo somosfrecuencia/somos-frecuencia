@@ -14,37 +14,40 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --black:   #000000;
-  --void:    #020205;
-  --deep:    #05050a;
-  --surface: #0a0a10;
-  --card:    #080810;
-  --b1:      #0e0e18;
-  --b2:      #181828;
-  --b3:      #222235;
-  --b4:      #333355;
-  --b5:      #555577;
-  --b6:      #7777aa;
-  --b7:      #aaaacc;
-  --b8:      #ccccee;
-  --white:   #f0f0ff;
-  --pure:    #ffffff;
-  --freq:    #00e0c8;
-  --freq2:   #00b8a6;
-  --freq3:   #4fc3d0;
-  --alien-purple: #7c5cbf;
-  --alien-red:    #e04020;
-  --alien-blue:   #3c7fd0;
-  --space-glow:   rgba(0,224,200,0.08);
-  --freq-glow:    rgba(0,224,200,0.15);
-  --freq-glow2:   rgba(0,224,200,0.04);
+  --black:   #ffffff;
+  --void:    #ffffff;
+  --deep:    #fafafa;
+  --surface: #f5f5f5;
+  --card:    #fafafa;
+  --b1:      #e8e8e8;
+  --b2:      #d0d0d0;
+  --b3:      #b0b0b0;
+  --b4:      #888888;
+  --b5:      #555555;
+  --b6:      #333333;
+  --b7:      #1a1a1a;
+  --b8:      #0a0a0a;
+  --white:   #0d0d0d;
+  --pure:    #000000;
+  --freq:    #00bfa8;
+  --freq2:   #009e8a;
+  --freq3:   #33c4b4;
+  --warm:    #444444;
+  --warm2:   #333333;
+  --alien-purple: #555555;
+  --alien-red:    #444444;
+  --alien-blue:   #4a4a4a;
+  --space-glow:   rgba(0,191,168,0.04);
+  --freq-glow:    rgba(0,191,168,0.08);
+  --freq-glow2:   rgba(0,191,168,0.02);
+  --warm-glow:    rgba(0,0,0,0.02);
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--void);
-  color: var(--white);
+  background: #ffffff;
+  color: #0d0d0d;
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   line-height: 1.6;
@@ -66,10 +69,10 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  background: rgba(2,2,5,0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 0.5px solid var(--b1);
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid var(--b1);
   display: flex;
   justify-content: space-between;
   align-items: center;
