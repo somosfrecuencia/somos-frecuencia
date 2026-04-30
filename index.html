@@ -863,6 +863,13 @@ body {
   pointer-events: none;
 }
 .shirt-card:hover .shirt-visual { background: var(--b1); }
+/* Dark tee cards get a dark background so the shirts stand out */
+.shirt-card[data-color="dark"] .shirt-visual {
+  background: #101018;
+}
+.shirt-card[data-color="dark"]:hover .shirt-visual {
+  background: #18181f;
+}
 .shirt-info { padding: 14px 16px; }
 .shirt-name { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--b7); font-weight: 300; margin-bottom: 4px; }
 .shirt-price { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--b4); margin-bottom: 10px; }
@@ -894,8 +901,8 @@ body {
   object-fit: cover;
   object-position: center top;
   display: block;
-  border: 2px solid rgba(0,224,200,0.25);
-  border: 0.5px solid rgba(0,191,168,0.2); box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: 0.5px solid rgba(0,191,168,0.25);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08), 0 0 0 2px rgba(0,224,200,0.10);
   position: relative;
   z-index: 1;
 }
@@ -1803,7 +1810,7 @@ body {
         <button class="btn-secondary" onclick="addToCart('shirt_w')">Añadir al carrito →</button>
       </div>
     </div>
-    <div class="shirt-card reveal" style="transition-delay:0.1s">
+    <div class="shirt-card reveal" data-color="dark" style="transition-delay:0.1s">
       <div class="shirt-visual">
         <svg width="118" height="118" viewBox="0 0 118 118">
           <defs>
@@ -1824,7 +1831,7 @@ body {
         <button class="btn-secondary" onclick="addToCart('shirt_b')">Añadir al carrito →</button>
       </div>
     </div>
-    <div class="shirt-card reveal" style="transition-delay:0.2s">
+    <div class="shirt-card reveal" data-color="dark" style="transition-delay:0.2s">
       <div class="shirt-visual">
         <svg width="118" height="118" viewBox="0 0 118 118">
           <defs>
@@ -1837,9 +1844,9 @@ body {
               <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
-          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z" fill="url(#shirtCGrad)" stroke="#101018" stroke-width="0.4"/>
-          <polyline points="30,68 34,62 37,74 41,58 44,72 47,64 51,70 55,60 59,68 63,60 67,72 70,62 73,68 76,58 79,72 83,62 87,68" fill="none" stroke="#00bfa8" stroke-width="0.8" filter="url(#freqGlow2)" opacity="0.8"/>
-          <text x="59" y="88" text-anchor="middle" fill="#333355" font-size="5" font-family="'DM Mono',monospace" letter-spacing="1.5">LA SEÑAL</text>
+          <path d="M38,28 L5,50 L20,58 L20,108 L98,108 L98,58 L113,50 L80,28 C73,13 64,9 59,9 C54,9 45,13 38,28Z" fill="url(#shirtCGrad)" stroke="#222230" stroke-width="0.4"/>
+          <polyline points="30,68 34,62 37,74 41,58 44,72 47,64 51,70 55,60 59,68 63,60 67,72 70,62 73,68 76,58 79,72 83,62 87,68" fill="none" stroke="#00bfa8" stroke-width="0.8" filter="url(#freqGlow2)" opacity="0.9"/>
+          <text x="59" y="88" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="5" font-family="'DM Mono',monospace" letter-spacing="1.5">LA SEÑAL</text>
         </svg>
       </div>
       <div class="shirt-info">
@@ -1856,7 +1863,7 @@ body {
   <div class="mentor-grid">
     <div class="reveal-left">
       <div class="mentor-photo-wrap">
-        <img src="mentor-photo.jpg" alt="Armando Toledano Uzcategui" class="mentor-photo" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 130 130\'%3E%3Crect width=\'130\' height=\'130\' rx=\'65\' fill=\'%23e8e8e8\'/%3E%3Ccircle cx=\'65\' cy=\'50\' r=\'24\' fill=\'%23d0d0d0\'/%3E%3Cellipse cx=\'65\' cy=\'105\' rx=\'38\' ry=\'28\' fill=\'%23d0d0d0\'/%3E%3Ccircle cx=\'65\' cy=\'65\' r=\'64\' fill=\'none\' stroke=\'%2300bfa8\' stroke-width=\'1\' stroke-opacity=\'0.3\'/%3E%3C/svg%3E'" />
+        <img src="https://raw.githubusercontent.com/somosfrecuencia/somos-frecuencia/main/mentor-photo.jpg" alt="Armando Toledano Uzcategui" class="mentor-photo" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 130 130\'%3E%3Crect width=\'130\' height=\'130\' rx=\'65\' fill=\'%23e8e8e8\'/%3E%3Ccircle cx=\'65\' cy=\'50\' r=\'24\' fill=\'%23d0d0d0\'/%3E%3Cellipse cx=\'65\' cy=\'105\' rx=\'38\' ry=\'28\' fill=\'%23d0d0d0\'/%3E%3Ccircle cx=\'65\' cy=\'65\' r=\'64\' fill=\'none\' stroke=\'%2300bfa8\' stroke-width=\'1\' stroke-opacity=\'0.3\'/%3E%3C/svg%3E'" />
         <div class="mentor-photo-ring"></div>
         <div class="mentor-online-badge">
           <span class="mentor-online-dot"></span>
